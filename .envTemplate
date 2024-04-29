@@ -1,0 +1,18 @@
+# Scrapping Website
+WEBSITE_LINK=https://myip.ms/
+# WEBSITE_LINK=https://whatismyipaddress.com/
+RERUN_TIME = 900 # Seconds (30minutes)
+RUNNING_DURATION = 2592000  # Seconds (30days)
+
+
+# Google App Password
+GMAIL_APP_USERNAME="google app username"
+GMAIL_APP_PASSWORD="google app password"
+GMAIL_SENDER="sender email"
+GMAIL_RECEIVER="email receiver"
+
+PROXY_USERNAME="proxy username"
+PROXY_PASSWORD="proxy password"
+PROXY_IP_AUTH="proxy_domain:proxy_port"
+PROXY_DOMAIN="proxy domain"
+PROXY_PORT="proxy port"
