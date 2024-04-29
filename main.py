@@ -11,6 +11,12 @@ from datetime import datetime, timedelta
 # for importing consts from .env
 from dotenv import load_dotenv
 
+# For email sending with Google app password
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -80,6 +86,30 @@ def check_website(parent_dir):
     # Take a screenshot and save it to the specified directory with the current date in the filename
     driver.save_screenshot(screenshot_path)
     print("ScreenShot Taken")
+
+    try:
+        # Get Image for sending in Email
+        with open(screenshot_path, 'rb') as f:
+            image_part = MIMEImage(f.read())
+
+        # Email Content
+        message = MIMEMultipart()
+        subject = "From Scraper"
+        body = f"Hello world!"
+        message['Subject'] = "Scraper Testing"
+        message["From"] = gmail_sender
+        message["To"] = gmail_receiver
+        html_part = MIMEText(body)
+        message.attach(html_part)
+        message.attach(image_part)
+
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
+            smtp_server.login(gmail_app_username, password=gmail_app_password)
+            smtp_server.sendmail(gmail_sender, gmail_receiver, message.as_string())
+            print("Message sent!")
+        print("Email Sent")
+    except Exception as e:
+        print("Issue Found", e)
 
     # Wait for specific time
     time.sleep(10)  # in seconds
