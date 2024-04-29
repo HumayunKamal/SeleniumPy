@@ -13,7 +13,13 @@ WEBSITE_LINK = 'https://myip.ms/'
 
 def check_website():
     # Config Driver
-    driver = webdriver.Chrome()
+    # For Ip Auth Configuration
+    # Chrome Options
+    chrome_options = webdriver.ChromeOptions()
+    # chrome_options.add_argument("--headless") # To run scraper without in background (without open the chrome)
+    ipconfig = f"http://proxy_domain:proxy_port"
+    chrome_options.add_argument('--proxy-server=%s' % ipconfig)
+    driver = webdriver.Chrome(options=chrome_options)
 
     # Run driver
     driver.maximize_window()
@@ -25,7 +31,7 @@ def check_website():
     # Xpath Selection
 
     # Wait for specific time
-    time.sleep(1)  # in minute
+    time.sleep(10)  # in seconds
 
     # Specify the parent directory path where you want to save screenshots
     parent_directory = "screenshots"
@@ -47,7 +53,7 @@ def check_website():
     print("ScreenShot Taken")
 
     # Wait for specific time
-    time.sleep(1)  # in minute
+    time.sleep(10)  # in seconds
 
     # Close the browser
     # driver.quit()
