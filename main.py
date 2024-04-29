@@ -6,20 +6,32 @@ from selenium import webdriver
 import time
 # datetime to get latest time
 from datetime import datetime
-
+# Selenium_wire for username and password proxy configuration
+from seleniumwire import webdriver
 
 WEBSITE_LINK = 'https://myip.ms/'
 
 
 def check_website():
+    # # Config Driver
+    # # For Ip Auth Configuration
+    # # Chrome Options
+    # chrome_options = webdriver.ChromeOptions()
+    # # chrome_options.add_argument("--headless") # To run scraper without in background (without open the chrome)
+    # ipconfig = f"http://proxy_domain:proxy_port"
+    # chrome_options.add_argument('--proxy-server=%s' % ipconfig)
+    # driver = webdriver.Chrome(options=chrome_options)
+
+    # UserName and Password Authentication
+    proxy_options = {
+        'proxy': {
+            "http": "http://proxy_username:proxy_password@proxy_domain:proxy_port/",
+            "https": "http://proxy_username:proxy_password@proxy_domain:proxy_port/",
+            'verify_ssl': False,
+        }
+    }
     # Config Driver
-    # For Ip Auth Configuration
-    # Chrome Options
-    chrome_options = webdriver.ChromeOptions()
-    # chrome_options.add_argument("--headless") # To run scraper without in background (without open the chrome)
-    ipconfig = f"http://proxy_domain:proxy_port"
-    chrome_options.add_argument('--proxy-server=%s' % ipconfig)
-    driver = webdriver.Chrome(options=chrome_options)
+    driver = webdriver.Chrome(seleniumwire_options=proxy_options)
 
     # Run driver
     driver.maximize_window()
